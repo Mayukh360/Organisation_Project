@@ -1,0 +1,16 @@
+{
+  "EXPECTED_ID": "Expected id for given cron job but found undefined.",
+  "SET": {
+    "EXPECTED_CRON_TIME": "Expected cron time for given cron job but found undefined.",
+    "DUPLICATE_CRON_JOB_ENTRY": "It seems that entry with given id already exists.",
+    "REQUIRE_ID": "Expected id for given cron job but found undefined.",
+    "CRON_WILL_NO_GOING_TO_EXECUTE": "Cron will going to work because given time is less than current time."
+  },
+  "JOB_EXECUTOR": {
+    "EXPECTED_JOB": "It seems that you are trying to call job executor without any job passed to it."
+  },
+  "REMOVE_JOB": {
+    "JOB_DOESNT_EXIST": "It seems that job you are trying to remove doesn't exist.",
+    "EXPECTED_RIDE_ID": "Expected id for given cron job but found undefined."
+  }
+}

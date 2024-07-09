@@ -1,0 +1,31 @@
+definitions:
+  services:
+    docker:
+      memory: 2048
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Deploy to Docker Hub
+          services:
+            - docker
+          script:
+            - export IMAGE_NAME=shucae/main-node:latest
+            - docker build -t $IMAGE_NAME .
+            - docker login --username $SF_DOCKER_HUB_USERNAME --password $SF_DOCKER_HUB_PASSWORD
+            - docker push $IMAGE_NAME
+      - step:
+          name: Deploy to Digital Ocean
+          script:
+            - export IMAGE_NAME=shucae/main-node:latest
+            - pipe: atlassian/ssh-run:0.2.2
+              variables:
+                SSH_USER: $SF_SSH_USER
+                SERVER: $SF_SSH_SERVER
+                COMMAND: |
+                  docker stop $CONTAINERS_TO_STOP
+                  docker pull $IMAGE_NAME
+                  docker run --network host -p $SF_SERVER_PORT:$SF_SERVER_PORT -d $IMAGE_NAME
+                  docker system prune -f
+          services:
+            - docker

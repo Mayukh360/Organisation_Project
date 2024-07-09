@@ -1,0 +1,67 @@
+#
+# GRAPH
+#
+type Account {
+  id          : ID,
+  createdAt   : DateTime,
+  updatedAt   : DateTime,
+  fullName    : String,
+  roles       : ROLES,
+  email       : EmailAddress,
+  password    : String,
+  token       : String,
+  Organisation: [Organisation],
+  Task        : [Task],
+  message     : String,
+  status      : String
+}
+
+type Organisation {
+  id       : ID,
+  createdAt: DateTime,
+  updatedAt: DateTime,
+  name     : String,
+  Account  : [Account],
+  Task     : [Task],
+  message  : String,
+  status   : String
+}
+
+type Task {
+  id          : ID,
+  createdAt   : DateTime,
+  updatedAt   : DateTime,
+  taskName    : String,
+  Organisation: [Organisation],
+  message     : String,
+  status      : String
+}
+
+
+
+#
+# MUTATION
+#
+extend type Mutation {
+  AccountLoginWithEmail(email: EmailAddress!, password: String!): Account!  @rateLimit(window: "1s", max: 3, message: "RATE_LIMIT"),
+  AccountRegisterWithEmail(email: EmailAddress!, password: String!, fullName: String!, roles: ROLES): Account! @rateLimit(window: "1s", max: 3, message: "RATE_LIMIT")
+  OrganisationCreate (organisationName:String!): Organisation! @isAuthenticated @rateLimit(window: "1s", max: 300, message: "RATE_LIMIT")
+  TaskCreate (taskName: String, organisationId: ID! ): Task! @isAuthenticated @rateLimit(window: "1s", max: 300, message: "RATE_LIMIT")
+  AccountLogout (email: EmailAddress!): Account!  @rateLimit(window: "1s", max: 3, message: "RATE_LIMIT") 
+}
+
+
+#
+# QUERY
+#
+extend type Query {
+  AccountDetail(accountId: ID, emailId: EmailAddress): Account! @isAuthenticated @rateLimit(window: "1s", max: 300, message: "RATE_LIMIT")
+}
+
+
+#
+# SUBSCRIPTION
+#
+extend type Subscription {
+  AccountDetail(accountId: ID, emailId: EmailAddress): Account! @isAuthenticated @rateLimit(window: "1s", max: 3, message: "RATE_LIMIT")
+}

@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://Nanoai:Piyush@nanoai@20.40.53.142:5432/Nanoai"
+}
+
+model Account {
+  id                                          String             @id @unique @default(cuid())
+  createdAt                                   DateTime           @default(now()) @db.Timestamp(6)
+  updatedAt                                   DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  fullName                                    String?
+  password                                    String?
+  roles                                       String?
+  email                                       String?            @unique(map: "email_1676392778723_index")
+  Organisation                                Organisation[]     @relation("OrganisationToAccount")
+}
+
+model Organisation{
+  id                                          String             @id @unique @default(cuid())
+  createdAt                                   DateTime           @default(now()) @db.Timestamp(6)
+  updatedAt                                   DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  name                                        String?
+  Account                                     Account[]         @relation("OrganisationToAccount")
+  Task                                        Task[]            @relation("TaskToOrganisation")
+}
+
+model Task {
+  id                                          String             @id @unique @default(cuid())
+  createdAt                                   DateTime           @default(now()) @db.Timestamp(6)
+  updatedAt                                   DateTime           @default(now()) @updatedAt @db.Timestamp(6)
+  taskName                                    String?
+  Organisation                                Organisation[]     @relation("TaskToOrganisation")
+}
+
+

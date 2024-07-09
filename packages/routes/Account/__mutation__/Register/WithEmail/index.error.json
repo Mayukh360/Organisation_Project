@@ -1,0 +1,7 @@
+{
+  "FAILED_TO_CREATE_ACCOUNT": "Failed to create account in database. Please contact administration.",
+  "OTP_VERIFICATION_FAILED": "Otp verification failed. Please check otp and try again.",
+  "REQUIRE_JWT": "Expected jwt token but found undefined.",
+  "ACCOUNT_WITH_EMAIL_FOUND": "Account already registered with given email address.",
+  "EMAIL_CONSTRUCTOR_CRASHED": "Something went wrong with email constructor. Reporting a bug report"
+}

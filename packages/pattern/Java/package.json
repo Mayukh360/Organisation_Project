@@ -1,0 +1,17 @@
+{
+  "name": "@pattern/java",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "niteshyadav@rootandleaves.com",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "clean": "rimraf node_modules pnpm-lock.yaml",
+    "upgrade": "ncu -u"
+  },
+  "dependencies": {
+    "deep-iterator": "^1.1.0",
+    "underscore": "^1.13.6",
+    "string": "^3.3.3"
+  }
+}

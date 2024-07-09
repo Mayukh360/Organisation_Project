@@ -1,0 +1,3 @@
+{
+  "SESSION_KILL_FAILED": "Expected boolean value for successful session remove but return was undefined."
+}
